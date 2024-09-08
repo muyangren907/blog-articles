@@ -113,7 +113,52 @@ int main() {
 
 ## 例题
 
-*  [ST 表模板题](https://www.luogu.com.cn/problem/P3865) 
+*  [[ST 表模板题]()](https://vjudge.net/problem/%E6%B4%9B%E8%B0%B7-P3865)
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+const int maxn=1e5+10;
+const int maxj=20;
+int lg2[maxn+1];
+int f[maxn][maxj];//[i,i+2^j)  j<=log2(maxn)
+void pre_log()
+{
+    for(int i=2;i<=maxn;++i)
+    {
+        lg2[i]=lg2[(i>>1)]+1;
+    }
+
+}
+
+signed main()
+{
+    pre_log();
+    int n,m;
+    scanf("%lld %lld",&n,&m);
+    for(int i=1;i<=n;i++)
+    {
+        scanf("%lld",&f[i][0]);
+    }
+    for(int j=1;j<=maxj;++j)
+    {
+        for(int i=1;i+(1<<j)-1<=n;++i)
+        {
+            f[i][j]=max(f[i][j-1],f[i+(1<<(j-1))][j-1]);
+        }
+    }
+    int l,r;
+    for(int i=0;i<m;++i)
+    {
+        scanf("%lld %lld",&l,&r);
+        int s=lg2[r-l+1];
+        printf("%lld\n",max(f[l][s],f[r-(1<<s)+1][s]));
+    }
+
+    return 0;
+}
+
+```
 
 ```cpp
 #include<bits/stdc++.h>
