@@ -214,10 +214,11 @@ int main() {
 2.  每次用 [std::log](https://en.cppreference.com/w/cpp/numeric/math/log) 重新计算 log 函数值并不值得，建议进行如下的预处理：
 
 $$
-\left\{\begin{aligned}
-Logn[1] &=0, \\
-Logn\left[i\right] &=Logn[\frac{i}{2}] + 1.
-\end{aligned}\right.
+lg2[1]=0;
+for(int i=2;i<=maxn;++i)
+{
+	lg2[i]=lg2[(i>>1)]+1;
+}
 $$
 
 ## ST 表维护其他信息
